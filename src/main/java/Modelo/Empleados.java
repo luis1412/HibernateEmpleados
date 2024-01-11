@@ -5,11 +5,14 @@
  */
 package Modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -18,8 +21,8 @@ import javax.persistence.Table;
  * @author Usuario
  */
 @Entity
-@Table
-public class Empleados {
+@Table(name="empleados")
+public class Empleados implements Serializable{
 
     @Id
     @Column(name = "emp_no")
@@ -32,7 +35,7 @@ public class Empleados {
     private String oficio;
 
     @Column(name = "fecha_alt")
-    private LocalDate fecha_alt;
+    private Date fecha_alt;
 
     @Column(name = "salario")
     private float salario;
@@ -40,23 +43,86 @@ public class Empleados {
     @Column(name = "comision")
     private float comision;
 
+    @JoinColumn(name ="dept_no", referencedColumnName = "dept_no")
     @ManyToOne
-    @Column(name = "dept_no")
-    private int dept_no;
+    private Departamentos dept_no;
 
+    public int getEmp_no() {
+        return emp_no;
+    }
+
+    public void setEmp_no(int emp_no) {
+        this.emp_no = emp_no;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getOficio() {
+        return oficio;
+    }
+
+    public void setOficio(String oficio) {
+        this.oficio = oficio;
+    }
+
+    public Date getFecha_alt() {
+        return fecha_alt;
+    }
+
+    public void setFecha_alt(Date fecha_alt) {
+        this.fecha_alt = fecha_alt;
+    }
+
+    public float getSalario() {
+        return salario;
+    }
+
+    public void setSalario(float salario) {
+        this.salario = salario;
+    }
+
+    public float getComision() {
+        return comision;
+    }
+
+    public void setComision(float comision) {
+        this.comision = comision;
+    }
+
+    public Departamentos getDept_no() {
+        return dept_no;
+    }
+
+    public void setDept_no(Departamentos dept_no) {
+        this.dept_no = dept_no;
+    }
+
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 13 * hash + this.emp_no;
-        hash = 13 * hash + Objects.hashCode(this.apellido);
-        hash = 13 * hash + Objects.hashCode(this.oficio);
-        hash = 13 * hash + Objects.hashCode(this.fecha_alt);
-        hash = 13 * hash + Float.floatToIntBits(this.salario);
-        hash = 13 * hash + Float.floatToIntBits(this.comision);
-        hash = 13 * hash + this.dept_no;
+        hash = 31 * hash + this.emp_no;
+        hash = 31 * hash + Objects.hashCode(this.apellido);
+        hash = 31 * hash + Objects.hashCode(this.oficio);
+        hash = 31 * hash + Objects.hashCode(this.fecha_alt);
+        hash = 31 * hash + Float.floatToIntBits(this.salario);
+        hash = 31 * hash + Float.floatToIntBits(this.comision);
+        hash = 31 * hash + Objects.hashCode(this.dept_no);
         return hash;
     }
 
+    public Empleados() {
+    }
+
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
