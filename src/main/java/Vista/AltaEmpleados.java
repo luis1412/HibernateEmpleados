@@ -11,6 +11,7 @@ import Modelo.Departamentos;
 import Modelo.Empleados;
 import com.toedter.calendar.JCalendar;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import javassist.expr.Instanceof;
 import javax.swing.ComboBoxModel;
@@ -22,7 +23,7 @@ import javax.swing.JOptionPane;
  * @author Usuario
  */
 public class AltaEmpleados extends javax.swing.JDialog {
-
+    
     Conector c = new Conector();
 
     /**
@@ -33,14 +34,14 @@ public class AltaEmpleados extends javax.swing.JDialog {
         initComponents();
         iniciarComboBox();
     }
-
+    
     public void iniciarComboBox() {
         DefaultComboBoxModel<String> modeloComboBox = new DefaultComboBoxModel<>();
         List<Departamentos> listaDepartamentos = c.devolverTodosDepartamento();
         for (Departamentos d : listaDepartamentos) {
             modeloComboBox.addElement(d.getDept_no() + "");
         }
-
+        
         jNumeroDepartamento.setModel(modeloComboBox);
     }
 
@@ -193,13 +194,21 @@ public class AltaEmpleados extends javax.swing.JDialog {
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         dispose();
     }//GEN-LAST:event_botonSalirActionPerformed
-
+    
+    public void borrarCampos() {
+        jApellido.setText("");
+        jComision.setText("");
+        jEmpleado.setText("");
+        jOficio.setText("");
+        jSalario.setText("");
+    }
+    
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         if (ComprobadorDatos.comprobarFloat(jComision.getText(), this)) {
             if (ComprobadorDatos.comprobarFloat(jSalario.getText(), this)) {
                 if (ComprobadorDatos.comprobarEntero(jEmpleado.getText(), this)) {
                     if (!jApellido.getText().isEmpty() && !jFechaAlta.getDate().toString().isEmpty() && !jOficio.getText().isEmpty() && jOficio.getText().length() <= 10 && jApellido.getText().length() <= 10) {
-
+                        
                         Empleados e1 = new Empleados();
                         e1.setApellido(jApellido.getText());
                         e1.setComision(Float.parseFloat(jComision.getText()));
@@ -211,6 +220,7 @@ public class AltaEmpleados extends javax.swing.JDialog {
                         e1.setSalario(Float.parseFloat(jSalario.getText()));
                         c.Insertar(e1);
                         JOptionPane.showMessageDialog(this, "Se ha introducido con exito");
+                        borrarCampos();
                     } else {
                         JOptionPane.showMessageDialog(this, "Todos los campos deben estar completados, o estas excendiendo el tamaño maximo de los campos Oficio o apellidos");
                     }
@@ -229,7 +239,7 @@ public class AltaEmpleados extends javax.swing.JDialog {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

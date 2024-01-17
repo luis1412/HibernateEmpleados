@@ -24,6 +24,12 @@ import javax.persistence.Table;
 @Table(name="empleados")
 public class Empleados implements Serializable{
 
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "salario")
+    private Float salario;
+    @Column(name = "comision")
+    private Float comision;
+
     @Id
     @Column(name = "emp_no")
     private int emp_no;
@@ -37,11 +43,6 @@ public class Empleados implements Serializable{
     @Column(name = "fecha_alt")
     private Date fecha_alt;
 
-    @Column(name = "salario")
-    private float salario;
-
-    @Column(name = "comision")
-    private float comision;
 
     @JoinColumn(name ="dept_no", referencedColumnName = "dept_no")
     @ManyToOne
@@ -79,21 +80,6 @@ public class Empleados implements Serializable{
         this.fecha_alt = fecha_alt;
     }
 
-    public float getSalario() {
-        return salario;
-    }
-
-    public void setSalario(float salario) {
-        this.salario = salario;
-    }
-
-    public float getComision() {
-        return comision;
-    }
-
-    public void setComision(float comision) {
-        this.comision = comision;
-    }
 
     public Departamentos getDept_no() {
         return dept_no;
@@ -157,6 +143,22 @@ public class Empleados implements Serializable{
             return false;
         }
         return true;
+    }
+
+    public Float getSalario() {
+        return salario;
+    }
+
+    public void setSalario(Float salario) {
+        this.salario = salario;
+    }
+
+    public Float getComision() {
+        return comision;
+    }
+
+    public void setComision(Float comision) {
+        this.comision = comision;
     }
 
     

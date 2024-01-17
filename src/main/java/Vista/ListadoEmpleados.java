@@ -122,6 +122,11 @@ public class ListadoEmpleados extends javax.swing.JDialog {
                 numeroDepartamentoItemStateChanged(evt);
             }
         });
+        numeroDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroDepartamentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,6 +176,10 @@ public class ListadoEmpleados extends javax.swing.JDialog {
         borrarTabla();
         inicializarTabla(Integer.parseInt(numeroDepartamento.getSelectedItem().toString()));
     }//GEN-LAST:event_numeroDepartamentoItemStateChanged
+
+    private void numeroDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroDepartamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numeroDepartamentoActionPerformed
 
     /**
      * @param args the command line arguments

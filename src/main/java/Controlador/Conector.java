@@ -67,12 +67,22 @@ public class Conector {
     }
     
     public boolean borrar(Empleados a){
-        Sesion();
-        em.getTransaction().begin();
-        em.remove(a);
-        em.getTransaction().commit();
-        cerrarSesion();
-        return true;
+            Sesion();
+         Empleados a1=new Empleados();
+         a1= (Empleados) em.find(Empleados.class,a.getEmp_no());
+         try
+         {
+                em.getTransaction().begin();
+                em.remove(a1);
+                em.getTransaction().commit();
+         } catch (Exception ex){
+         JOptionPane.showMessageDialog(null,"No se ha dado de alta", "ERROR", 0);
+         ex.printStackTrace();
+              em.getTransaction().rollback();
+         } finally {
+            cerrarSesion();
+         }
+         return true;
     }
     
     public List<Empleados> devolverTodosEmpleados(){
