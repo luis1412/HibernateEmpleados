@@ -9,7 +9,9 @@ package Controlador;
 
 import Modelo.Departamentos;
 import Modelo.Empleados;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -89,6 +91,26 @@ public class Conector {
         Sesion();
         String consulta = "FROM Empleados";
         Query query = em.createQuery(consulta);
+        List<Empleados> listaEmpleados = query.getResultList();
+        cerrarSesion();
+        return listaEmpleados;
+    }
+    
+    
+    public List<Empleados> consultaSimple(String consulta){
+        Sesion();
+        Query query = em.createQuery(consulta);
+        List<Empleados> listaEmpleados = query.getResultList();
+        cerrarSesion();
+        return listaEmpleados;
+    }
+    
+    
+    public List<Empleados> consultaFechas(String consulta, Date fecha1, Date fecha2){
+        Sesion();
+        Query query = em.createQuery(consulta);
+        query.setParameter("fecha1", fecha1);
+        query.setParameter("fecha2", fecha2);
         List<Empleados> listaEmpleados = query.getResultList();
         cerrarSesion();
         return listaEmpleados;
