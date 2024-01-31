@@ -49,21 +49,23 @@ public class Conector {
     }
     
     
-    public boolean Insertar(Empleados e1){
-    
+         public boolean Insertar(Object objeto) {
         boolean resultado = false;
         Sesion();
-        
+
         try {
             em.getTransaction().begin();
-            em.persist(e1);
+            em.persist(objeto);
             em.getTransaction().commit();
             resultado = true;
-        } catch (org.hibernate.DuplicateMappingException e) {
-            em.getTransaction().rollback();
-            JOptionPane.showMessageDialog(null, "CLAVE DUPLICADA", "ERROR", 0);
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Error al insertar objeto: " + e.getMessage(), "ERROR", 0);
+            e.printStackTrace();
         }
-        
+
         cerrarSesion();
         return resultado;
     }
